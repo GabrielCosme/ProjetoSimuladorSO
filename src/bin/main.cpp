@@ -26,7 +26,7 @@ int main() {
 
         std::getline(std::cin, input_command);
 
-        if (std::regex_match(input_command, input_matches, CREATE_COMMAND)) {
+        if (std::regex_match(input_command, CREATE_COMMAND)) {
             std::regex_search(input_command, input_matches, INSTRUCTION_ARG);
             uint16_t instruction_amount = std::stoi(input_matches[2]);
 
@@ -38,9 +38,9 @@ int main() {
             uint16_t process_id = std::stoi(input_matches[3]);
 
             process_manager.plan_kill(process_id);
-        } else if (std::regex_match(input_command, input_matches, EXIT_COMMAND)) {
+        } else if (std::regex_match(input_command, EXIT_COMMAND)) {
             break;
-        } else if (std::regex_match(input_command, input_matches, RUN_COMMAND)) {
+        } else if (std::regex_match(input_command, RUN_COMMAND)) {
             try {
                 process_manager.run_process();
             } catch (std::out_of_range& e) {
@@ -48,7 +48,7 @@ int main() {
             } catch (std::runtime_error& e) {
                 std::cout << "Not enough memory to create process" << std::endl;
             }
-        } else if (std::regex_match(input_command, input_matches, HELP_COMMAND)) {
+        } else if (std::regex_match(input_command, HELP_COMMAND)) {
             std::cout << "<empty>|r|run: run one clock step" << std::endl;
             std::cout << "create -i <instruction_amount> -m <memory_size>: create process" << std::endl;
             std::cout << "kill <process_id>: kill process" << std::endl;
