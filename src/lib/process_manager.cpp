@@ -22,21 +22,21 @@ void ProcessManager::run_process() {
     switch (first_task.command) {
         case CREATE: {
             this->tasks_queue.pop_front();
-            this->processes.at(first_task.id).create();
-            this->tasks_queue.emplace_back(RUN, first_task.id);
+            this->processes.at(first_task.process_id).create();
+            this->tasks_queue.emplace_back(RUN, first_task.process_id);
             break;
         }
 
         case RUN: {
-            if (this->processes.at(first_task.id).run()) {
+            if (this->processes.at(first_task.process_id).run()) {
                 this->tasks_queue.pop_front();
-                this->processes.erase(first_task.id);
+                this->processes.erase(first_task.process_id);
                 break;
             }
 
             if (USE_ROUND_ROBIN) {
                 this->tasks_queue.pop_front();
-                this->tasks_queue.emplace_back(RUN, first_task.id);
+                this->tasks_queue.emplace_back(RUN, first_task.process_id);
             }
 
             break;
@@ -45,10 +45,10 @@ void ProcessManager::run_process() {
         case KILL: {
             this->tasks_queue.remove_if(
                 [&first_task](Task task) {
-                    return task.id == first_task.id;
+                    return task.process_id == first_task.process_id;
                 });
 
-            this->processes.erase(first_task.id);
+            this->processes.erase(first_task.process_id);
             break;
         }
 
@@ -68,16 +68,16 @@ std::ostream& operator <<(std::ostream& output, const ProcessManager& process_ma
         if (task.command == CREATE) {
             output << "create" << "|";
         } else if (task.command == RUN) {
-            output << "PID " << task.id << "|";
+            output << "PID " << task.process_id << "|";
         } else if (task.command == KILL) {
-            output << "kill " << task.id << "|";
+            output << "kill " << task.process_id << "|";
         }
     }
 
     auto first_task = process_manager.tasks_queue.front();
 
     if (first_task.command == RUN) {
-        output << std::endl << process_manager.processes.at(first_task.id);
+        output << std::endl << process_manager.processes.at(first_task.process_id);
     }
 
     return output;

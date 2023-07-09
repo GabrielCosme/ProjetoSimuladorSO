@@ -1,20 +1,20 @@
 #include <list>
-#include <map>
+#include <unordered_map>
 
 #include "process.hpp"
 
 #ifndef __PROCESS_MANAGER_HPP__
 #define __PROCESS_MANAGER_HPP__
 
-enum ProcessCommand {
+enum TaskCommand {
     CREATE,
     RUN,
     KILL
 };
 
 typedef struct {
-    ProcessCommand command;
-    uint16_t       id;
+    TaskCommand command;
+    uint16_t    process_id;
 } Task;
 
 class ProcessManager {
@@ -57,7 +57,7 @@ class ProcessManager {
 
         uint16_t id_counter = 0;
 
-        std::map<uint16_t, Process> processes;
+        std::unordered_map<uint16_t, Process> processes;
         std::list<Task> tasks_queue;
 };
 
