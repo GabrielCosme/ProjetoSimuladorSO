@@ -9,7 +9,9 @@ ProcessManager::ProcessManager(Memory& memory) :
 
 void ProcessManager::plan_create(uint16_t instruction_amount, uint16_t memory_size) {
     this->processes.try_emplace(this->id_counter, this->id_counter, instruction_amount, memory_size, this->memory);
-    this->tasks_queue.emplace_back(CREATE, this->id_counter++);
+    this->tasks_queue.emplace_back(CREATE, this->id_counter);
+
+    this->id_counter++;
 }
 
 void ProcessManager::run_process() {
