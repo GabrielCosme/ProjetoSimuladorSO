@@ -53,9 +53,12 @@ class ProcessManager {
         friend std::ostream& operator <<(std::ostream& output, const ProcessManager& process_manager);
 
     private:
-        Memory memory;
+        Memory& memory;
+
+        uint16_t id_counter = 0;
+
         std::map<uint16_t, Process> processes;
-        std::list<ProcessQueueItem> process_queue;
+        std::list<ProcessQueueItem> processes_queue;
 };
 
 #endif // __PROCESS_MANAGER_HPP__

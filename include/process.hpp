@@ -14,7 +14,7 @@ class Process {
          * @param memory_size The size of the memory block the process will use
          * @param memory The memory object
          */
-        Process(uint16_t instruction_amount, uint16_t memory_size, Memory& memory);
+        Process(uint16_t id, uint16_t instruction_amount, uint16_t memory_size, Memory& memory);
 
         /**
          * @brief Destroy the Process object
@@ -51,7 +51,6 @@ class Process {
         friend std::ostream& operator <<(std::ostream& output, const Process& process);
 
     private:
-        inline static uint16_t id_counter = 0;
         uint16_t id;
 
         uint16_t program_counter = 0;
@@ -60,7 +59,7 @@ class Process {
         uint16_t start_address;
         uint16_t memory_size;
 
-        Memory memory;
+        Memory& memory;
 };
 
 #endif // __PROCESS_HPP__

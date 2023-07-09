@@ -9,8 +9,9 @@ int main() {
     std::string input_command;
 
     while (true) {
+        std::cout << memory << std::endl;
+        std::cout << process_manager << std::endl;
         std::cin >> input_command;
-        std::cout << input_command << std::endl;
 
         if (input_command == "create") {
             uint16_t instruction_amount, memory_size;
@@ -24,13 +25,19 @@ int main() {
             std::cin >> process_id;
 
             process_manager.plan_kill(process_id);
-        } else if (input_command == "run") {
-            process_manager.run_process();
         } else if (input_command == "exit") {
             break;
+        } else {
+            try {
+                process_manager.run_process();
+            } catch (std::out_of_range& e) {
+                std::cout << "Process not found" << std::endl;
+            } catch (std::runtime_error& e) {
+                std::cout << "Not enough memory to create process" << std::endl;
+            }
         }
 
-        process_manager.run_process();
+        std::cout << "------------------------" << std::endl;
     }
 
     return 0;
