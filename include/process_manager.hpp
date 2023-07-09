@@ -15,7 +15,7 @@ enum ProcessCommand {
 typedef struct {
     ProcessCommand command;
     uint16_t       id;
-} ProcessQueueItem;
+} Task;
 
 class ProcessManager {
     public:
@@ -58,7 +58,7 @@ class ProcessManager {
         uint16_t id_counter = 0;
 
         std::map<uint16_t, Process> processes;
-        std::list<ProcessQueueItem> processes_queue;
+        std::list<Task> tasks_queue;
 };
 
 #endif // __PROCESS_MANAGER_HPP__
