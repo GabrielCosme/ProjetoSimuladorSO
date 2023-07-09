@@ -1,5 +1,3 @@
-#include <cstdint>
-
 #include "process.hpp"
 
 Process::Process(uint16_t id, uint16_t instruction_amount, uint16_t memory_size, Memory& memory) :

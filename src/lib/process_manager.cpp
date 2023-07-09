@@ -1,5 +1,4 @@
 #include "process_manager.hpp"
-#include "memory.hpp"
 
 ProcessManager::ProcessManager(Memory& memory) :
     memory(memory) {
@@ -37,7 +36,7 @@ void ProcessManager::run_process() {
                 break;
             }
 
-            if (is_round_robin) {
+            if (use_round_robin) {
                 this->processes_queue.pop_front();
                 this->processes_queue.emplace_back(RUN, first_process.id);
             }

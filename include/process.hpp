@@ -1,5 +1,3 @@
-#include <cstdint>
-
 #include "memory.hpp"
 
 #ifndef __PROCESS_HPP__
