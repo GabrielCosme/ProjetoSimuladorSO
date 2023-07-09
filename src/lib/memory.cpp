@@ -5,8 +5,8 @@
 Memory::Memory() {
     this->bitmap.fill(false);
 
-    for (auto i: ALLOCATED_ADDRESSES) {
-        this->bitmap[i] = true;
+    for (auto addr: ALLOCATED_ADDRESSES) {
+        this->bitmap[addr] = true;
     }
 }
 
@@ -42,8 +42,8 @@ void Memory::free(uint16_t start, uint16_t size) {
 }
 
 std::ostream& operator <<(std::ostream& output, const Memory& memory) {
-    for (auto i: memory.bitmap) {
-        output << i;
+    for (auto bit: memory.bitmap) {
+        output << bit;
     }
 
     return output;
