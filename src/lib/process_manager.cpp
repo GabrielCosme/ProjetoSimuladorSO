@@ -66,6 +66,10 @@ void ProcessManager::plan_kill(uint16_t process_id) {
 }
 
 std::ostream& operator <<(std::ostream& output, const ProcessManager& process_manager) {
+    if (process_manager.tasks_queue.empty()) {
+        return output;
+    }
+
     output << "|";
 
     for (auto task: process_manager.tasks_queue) {
