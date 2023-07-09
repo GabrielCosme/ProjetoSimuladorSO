@@ -17,26 +17,26 @@ void ProcessManager::run_process() {
         return;
     }
 
-    auto first_process = this->tasks_queue.front();
+    auto first_task = this->tasks_queue.front();
 
-    switch (first_process.command) {
+    switch (first_task.command) {
         case CREATE: {
             this->tasks_queue.pop_front();
-            this->processes.at(first_process.id).create();
-            this->tasks_queue.emplace_back(RUN, first_process.id);
+            this->processes.at(first_task.id).create();
+            this->tasks_queue.emplace_back(RUN, first_task.id);
             break;
         }
 
         case RUN: {
-            if (this->processes.at(first_process.id).run()) {
+            if (this->processes.at(first_task.id).run()) {
                 this->tasks_queue.pop_front();
-                this->processes.erase(first_process.id);
+                this->processes.erase(first_task.id);
                 break;
             }
 
             if (USE_ROUND_ROBIN) {
                 this->tasks_queue.pop_front();
-                this->tasks_queue.emplace_back(RUN, first_process.id);
+                this->tasks_queue.emplace_back(RUN, first_task.id);
             }
 
             break;
@@ -44,11 +44,11 @@ void ProcessManager::run_process() {
 
         case KILL: {
             this->tasks_queue.remove_if(
-                [&first_process](Task task) {
-                    return task.id == first_process.id;
+                [&first_task](Task task) {
+                    return task.id == first_task.id;
                 });
 
-            this->processes.erase(first_process.id);
+            this->processes.erase(first_task.id);
             break;
         }
 
