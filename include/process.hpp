@@ -17,7 +17,7 @@ class Process {
         /**
          * @brief Destroy the Process object
          */
-        ~Process() = default;
+        ~Process();
 
         /**
          * @brief Create the process
@@ -30,11 +30,6 @@ class Process {
          * @return bool Whether the process has finished running
          */
         bool run();
-
-        /**
-         * @brief Kill the process
-         */
-        void kill();
 
         /**
          * @brief Get the process id
