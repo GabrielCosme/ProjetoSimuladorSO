@@ -1,10 +1,13 @@
 # Simulador de SO
 
-# How to run
-## Config
-The configs could be found on `cfg/constants.hpp`.
+## How to run
 
-## Build
+### Configuration
+
+The configuration can be found on `cfg/constants.hpp`.
+
+### Build
+
 ```bash
 mkdir build
 cd build
@@ -12,7 +15,8 @@ cmake ..
 make
 ```
 
-## Run
-```
+### Run
+
+```bash
 ./build/projeto_simulador_so_bin
 ```
