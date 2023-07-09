@@ -2,6 +2,8 @@
 
 #include "process.hpp"
 
+Memory Process::memory;
+
 Process::Process(uint16_t instruction_amount, uint16_t memory_size) :
     instruction_amount(instruction_amount), memory_size(memory_size) {
     this->id = id_counter++;
