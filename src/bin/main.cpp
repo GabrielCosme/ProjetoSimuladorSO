@@ -3,7 +3,8 @@
 #include "process_manager.hpp"
 
 int main() {
-    ProcessManager process_manager;
+    Memory memory;
+    ProcessManager process_manager(memory);
 
     std::string input_command;
 

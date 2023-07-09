@@ -22,7 +22,7 @@ class ProcessManager {
         /**
          * @brief Construct a new ProcessManager object
          */
-        ProcessManager();
+        ProcessManager(Memory& memory);
 
         /**
          * @brief Destroy the ProcessManager object
@@ -53,6 +53,7 @@ class ProcessManager {
         friend std::ostream& operator <<(std::ostream& output, const ProcessManager& process_manager);
 
     private:
+        Memory memory;
         std::map<uint16_t, Process> processes;
         std::list<ProcessQueueItem> process_queue;
 };

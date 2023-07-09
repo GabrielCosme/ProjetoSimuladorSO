@@ -2,15 +2,14 @@
 
 #include "process.hpp"
 
-Memory Process::memory;
-
-Process::Process(uint16_t instruction_amount, uint16_t memory_size) :
+Process::Process(uint16_t instruction_amount, uint16_t memory_size, Memory& memory) :
     instruction_amount(instruction_amount), memory_size(memory_size) {
     this->id = id_counter++;
+    this->memory = memory;
 }
 
 void Process::create() {
-    this->start_address = Process::memory.allocate(this->memory_size);
+    this->start_address = this->memory.allocate(this->memory_size);
 }
 
 bool Process::run() {
@@ -24,7 +23,7 @@ bool Process::run() {
 }
 
 void Process::kill() {
-    Process::memory.free(this->start_address, this->memory_size);
+    this->memory.free(this->start_address, this->memory_size);
 }
 
 uint16_t Process::get_id() const {

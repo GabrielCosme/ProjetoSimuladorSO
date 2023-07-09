@@ -1,13 +1,15 @@
 #include "process_manager.hpp"
+#include "memory.hpp"
 
-ProcessManager::ProcessManager() {
+ProcessManager::ProcessManager(Memory& memory) {
+    this->memory = memory;
     for (auto& c: START_PROCESSES) {
         this->plan_create(c.first, c.second);
     }
 }
 
 void ProcessManager::plan_create(uint16_t instruction_amount, uint16_t memory_size) {
-    Process process(instruction_amount, memory_size);
+    Process process(instruction_amount, memory_size, memory);
 
     this->processes.emplace(process.get_id(), process);
     this->process_queue.push_back({CREATE, process.get_id()});

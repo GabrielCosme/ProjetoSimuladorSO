@@ -14,7 +14,7 @@ class Process {
          * @param memory_size The size of the memory block the process will use
          * @param memory The memory object
          */
-        Process(uint16_t instruction_amount, uint16_t memory_size);
+        Process(uint16_t instruction_amount, uint16_t memory_size, Memory& memory);
 
         /**
          * @brief Destroy the Process object
@@ -60,7 +60,7 @@ class Process {
         uint16_t start_address;
         uint16_t memory_size;
 
-        static Memory memory;
+        Memory memory;
 };
 
 #endif // __PROCESS_HPP__
