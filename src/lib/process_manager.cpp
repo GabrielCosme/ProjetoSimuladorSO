@@ -31,12 +31,14 @@ void ProcessManager::run_process() {
 
         case RUN: {
             if (this->processes.at(first_task.process_id).run()) {
+                this->quantum_counter = 0;
                 this->tasks_queue.pop_front();
                 this->processes.erase(first_task.process_id);
                 break;
             }
 
-            if (USE_ROUND_ROBIN) {
+            if (USE_ROUND_ROBIN and (++this->quantum_counter) >= QUANTUM) {
+                this->quantum_counter = 0;
                 this->tasks_queue.pop_front();
                 this->tasks_queue.emplace_back(RUN, first_task.process_id);
             }

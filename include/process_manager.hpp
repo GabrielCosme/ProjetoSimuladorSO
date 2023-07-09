@@ -56,6 +56,7 @@ class ProcessManager {
         Memory& memory;
 
         uint16_t id_counter = 0;
+        uint16_t quantum_counter = 0;
 
         std::unordered_map<uint16_t, Process> processes;
         std::list<Task> tasks_queue;
