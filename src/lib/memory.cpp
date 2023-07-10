@@ -40,11 +40,3 @@ void Memory::free(uint16_t start, uint16_t size) {
         this->bitmap[i] = false;
     }
 }
-
-std::ostream& operator <<(std::ostream& output, const Memory& memory) {
-    for (auto bit: memory.bitmap) {
-        output << bit;
-    }
-
-    return output;
-}

@@ -63,29 +63,3 @@ void ProcessManager::run_process() {
 void ProcessManager::plan_kill(uint16_t process_id) {
     this->tasks_queue.emplace_back(KILL, process_id);
 }
-
-std::ostream& operator <<(std::ostream& output, const ProcessManager& process_manager) {
-    if (process_manager.tasks_queue.empty()) {
-        return output;
-    }
-
-    output << "|";
-
-    for (auto task: process_manager.tasks_queue) {
-        if (task.command == CREATE) {
-            output << "create" << "|";
-        } else if (task.command == RUN) {
-            output << "PID " << task.process_id << "|";
-        } else if (task.command == KILL) {
-            output << "kill " << task.process_id << "|";
-        }
-    }
-
-    auto first_task = process_manager.tasks_queue.front();
-
-    if (first_task.command == RUN) {
-        output << std::endl << process_manager.processes.at(first_task.process_id);
-    }
-
-    return output;
-}
