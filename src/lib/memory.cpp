@@ -32,7 +32,7 @@ uint16_t Memory::allocate(uint16_t size) {
         }
     }
 
-    throw std::runtime_error("Out of memory");
+    throw std::length_error("Out of memory");
 }
 
 void Memory::free(uint16_t start, uint16_t size) {
