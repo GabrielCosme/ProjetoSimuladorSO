@@ -1,7 +1,6 @@
 #include "process_manager.hpp"
 
-ProcessManager::ProcessManager(Memory& memory) :
-    memory(memory) {
+ProcessManager::ProcessManager() {
     for (auto& task: START_PROCESSES) {
         this->plan_create(task.first, task.second);
     }

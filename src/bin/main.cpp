@@ -18,14 +18,7 @@ const std::regex EXIT_COMMAND(R"(e(xit)?)");
 constexpr char CLEAR_SCREEN[] = "\033c";
 
 int main() {
-    Memory memory;
-    ProcessManager process_manager(memory);
-
-    std::ofstream out("/dev/pts/1");
-    std::string input_command;
-    std::smatch input_matches;
-
-    std::cout << CLEAR_SCREEN;
+    ProcessManager process_manager;
 
     while (true) {
         out << CLEAR_SCREEN;
