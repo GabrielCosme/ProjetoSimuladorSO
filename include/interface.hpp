@@ -100,6 +100,14 @@ class Interface {
                  */
                 void print_insufficient_memory();
 
+                /**
+                 * @brief Adapt text to be placed vertically in any column
+                 *
+                 * @param x_pos The column to place the text
+                 * @param text The text to be placed
+                 */
+                static std::string place_vertical(uint16_t x_pos, std::string text);
+
             private:
                 /**
                  * @brief The stream to output screen
