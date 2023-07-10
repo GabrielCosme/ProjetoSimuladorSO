@@ -56,12 +56,29 @@ class ProcessManager {
         friend std::ostream& operator <<(std::ostream& output, const ProcessManager& process_manager);
 
     private:
+        /**
+         * @brief Shared Memory object
+         */
         Memory memory;
 
+        /**
+         * @brief The id of the next process created
+         */
         uint16_t id_counter = 0;
+
+        /**
+         * @brief Counter for the round-robin algorithm
+         */
         uint16_t quantum_counter = 0;
 
+        /**
+         * @brief Map to store the processes using the id as key
+         */
         std::unordered_map<uint16_t, Process> processes;
+
+        /**
+         * @brief Queue to store the tasks to be executed
+         */
         std::list<Task> tasks_queue;
 };
 
