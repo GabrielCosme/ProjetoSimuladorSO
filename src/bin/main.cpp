@@ -24,6 +24,7 @@ int main() {
     std::smatch input_matches;
 
     while (true) {
+        out << "\033c";  // Clear screen
         out << memory << std::endl;
         out << process_manager << std::endl;
 
@@ -59,8 +60,6 @@ int main() {
             out << "Invalid command " << input_command << std::endl;
             out << "use \"help\" to get options" << std::endl;
         }
-
-        out << "\033c";  // Clear screen
     }
 
     out.close();
