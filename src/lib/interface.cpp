@@ -105,6 +105,8 @@ std::ostream& operator <<(std::ostream& output, const Process& process) {
 }
 
 std::ostream& operator <<(std::ostream& output, const ProcessManager& process_manager) {
+    output << process_manager.memory << std::endl;
+
     if (process_manager.tasks_queue.empty()) {
         return output;
     }
