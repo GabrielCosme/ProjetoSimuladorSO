@@ -3,7 +3,7 @@
 
 #include "interface.hpp"
 
-static constexpr char CLEAR_SCREEN[] = "\e[2J";
+static constexpr char CLEAR_SCREEN[] = "\ec";
 
 // Input Defines
 static const std::regex INSTRUCTION_REGEX(R"(-i(\s*)([0-9]+))");
@@ -61,8 +61,9 @@ uint16_t Interface::Input::get_process_id() const {
 
 void Interface::Input::print_help() {
     std::cout << "<empty>|r|run: run one clock step" << std::endl;
-    std::cout << "create -i <instruction_amount> -m <memory_size>: create process" << std::endl;
-    std::cout << "kill <process_id>: kill process" << std::endl;
+    std::cout << "c|create -i <instruction_amount> -m <memory_size>: create process" << std::endl;
+    std::cout << "k|kill <process_id>: kill process" << std::endl;
+    std::cout << "h|help: print this help" << std::endl;
 }
 
 void Interface::Input::print_invalid() {
