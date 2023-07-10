@@ -107,6 +107,13 @@ class Interface {
                 std::ofstream out;
         };
 
+        /**
+         * @brief Object to interact with the input screen
+         */
         Input input;
+
+        /**
+         * @brief Object to interact with the output screen
+         */
         Output output;
 };
