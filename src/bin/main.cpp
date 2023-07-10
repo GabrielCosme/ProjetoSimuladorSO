@@ -15,6 +15,8 @@ const std::regex KILL_COMMAND(R"(k(ill)?(\s+)([0-9]+))");
 const std::regex HELP_COMMAND(R"(h(elp)?)");
 const std::regex EXIT_COMMAND(R"(e(xit)?)");
 
+constexpr char CLEAR_SCREEN[] = "\033c";
+
 int main() {
     Memory memory;
     ProcessManager process_manager(memory);
@@ -23,12 +25,19 @@ int main() {
     std::string input_command;
     std::smatch input_matches;
 
+    std::cout << CLEAR_SCREEN;
+
     while (true) {
-        out << "\033c";  // Clear screen
+        out << CLEAR_SCREEN;
+
+        // Write interface
         out << memory << std::endl;
         out << process_manager << std::endl;
 
+        std::cout << "$> ";
+
         std::getline(std::cin, input_command);
+        std::cout << CLEAR_SCREEN;
 
         if (std::regex_match(input_command, CREATE_COMMAND)) {
             std::regex_search(input_command, input_matches, INSTRUCTION_ARG);
@@ -53,12 +62,12 @@ int main() {
                 out << "Not enough memory to create process" << std::endl;
             }
         } else if (std::regex_match(input_command, HELP_COMMAND)) {
-            out << "<empty>|r|run: run one clock step" << std::endl;
-            out << "create -i <instruction_amount> -m <memory_size>: create process" << std::endl;
-            out << "kill <process_id>: kill process" << std::endl;
+            std::cout << "<empty>|r|run: run one clock step" << std::endl;
+            std::cout << "create -i <instruction_amount> -m <memory_size>: create process" << std::endl;
+            std::cout << "kill <process_id>: kill process" << std::endl;
         } else {
-            out << "Invalid command " << input_command << std::endl;
-            out << "use \"help\" to get options" << std::endl;
+            std::cout << "Invalid command " << input_command << std::endl;
+            std::cout << "use \"help\" to get options" << std::endl;
         }
     }
 
