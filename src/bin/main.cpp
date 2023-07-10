@@ -1,3 +1,5 @@
+#include <stdexcept>
+
 #include "interface.hpp"
 
 int main() {
