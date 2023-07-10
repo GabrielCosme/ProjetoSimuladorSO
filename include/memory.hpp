@@ -1,5 +1,5 @@
 #include <array>
-#include <iostream>
+#include <ostream>
 
 #include "constants.hpp"
 
