@@ -6,15 +6,18 @@
 #ifndef __PROCESS_MANAGER_HPP__
 #define __PROCESS_MANAGER_HPP__
 
-enum TaskCommand {
+enum Command {
     CREATE,
     RUN,
-    KILL
+    KILL,
+    HELP,
+    EXIT,
+    INVALID
 };
 
 typedef struct {
-    TaskCommand command;
-    uint16_t    process_id;
+    Command  command;
+    uint16_t process_id;
 } Task;
 
 class ProcessManager {

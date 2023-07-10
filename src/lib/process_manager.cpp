@@ -8,7 +8,7 @@ ProcessManager::ProcessManager() {
 
 void ProcessManager::plan_create(uint16_t instruction_amount, uint16_t memory_size) {
     this->processes.try_emplace(this->id_counter, this->id_counter, instruction_amount, memory_size, this->memory);
-    this->tasks_queue.emplace_back(CREATE, this->id_counter);
+    this->tasks_queue.emplace_back(Command::CREATE, this->id_counter);
 
     this->id_counter++;
 }
@@ -21,14 +21,14 @@ void ProcessManager::run_process() {
     auto first_task = this->tasks_queue.front();
 
     switch (first_task.command) {
-        case CREATE: {
+        case Command::CREATE: {
             this->tasks_queue.pop_front();
             this->processes.at(first_task.process_id).create();
-            this->tasks_queue.emplace_back(RUN, first_task.process_id);
+            this->tasks_queue.emplace_back(Command::RUN, first_task.process_id);
             break;
         }
 
-        case RUN: {
+        case Command::RUN: {
             if (this->processes.at(first_task.process_id).run()) {
                 this->quantum_counter = 0;
                 this->tasks_queue.pop_front();
@@ -39,13 +39,13 @@ void ProcessManager::run_process() {
             if (USE_ROUND_ROBIN and (++this->quantum_counter) >= QUANTUM) {
                 this->quantum_counter = 0;
                 this->tasks_queue.pop_front();
-                this->tasks_queue.emplace_back(RUN, first_task.process_id);
+                this->tasks_queue.emplace_back(Command::RUN, first_task.process_id);
             }
 
             break;
         }
 
-        case KILL: {
+        case Command::KILL: {
             this->tasks_queue.remove_if(
                 [&first_task](Task task) {
                     return task.process_id == first_task.process_id;
