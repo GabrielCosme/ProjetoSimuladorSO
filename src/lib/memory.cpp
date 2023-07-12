@@ -32,19 +32,11 @@ uint16_t Memory::allocate(uint16_t size) {
         }
     }
 
-    throw std::runtime_error("Out of memory");
+    throw std::length_error("Out of memory");
 }
 
 void Memory::free(uint16_t start, uint16_t size) {
     for (uint16_t i = start; i < start + size; i++) {
         this->bitmap[i] = false;
     }
-}
-
-std::ostream& operator <<(std::ostream& output, const Memory& memory) {
-    for (auto bit: memory.bitmap) {
-        output << bit;
-    }
-
-    return output;
 }

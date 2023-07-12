@@ -18,6 +18,7 @@ get_filename_component(PARENT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/.. ABSOLUTE)
 include(cmake/Linter.cmake)
 
 add_library(${PROJECT_NAME}_lib
+  src/lib/interface.cpp
   src/lib/memory.cpp
   src/lib/process_manager.cpp
   src/lib/process.cpp

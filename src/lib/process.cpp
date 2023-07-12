@@ -25,13 +25,3 @@ bool Process::run() {
 uint16_t Process::get_id() const {
     return this->id;
 }
-
-std::ostream& operator <<(std::ostream& output, const Process& process) {
-    output << "| PID: " << process.id <<
-    " | PC: " << process.program_counter <<
-    " | NUM_INST: " << process.instruction_amount <<
-    " | MEM_ADDR: " << process.start_address <<
-    " | MEM_SZ: " << process.memory_size << " |";
-
-    return output;
-}
