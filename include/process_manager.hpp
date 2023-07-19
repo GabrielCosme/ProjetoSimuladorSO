@@ -15,7 +15,7 @@ enum Command {
     INVALID
 };
 
-using Task = struct {
+struct Task {
     Command  command;
     uint16_t process_id;
 };
