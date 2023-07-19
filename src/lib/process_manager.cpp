@@ -52,6 +52,11 @@ void ProcessManager::run_first_task() {
                 });
 
             this->processes.erase(first_task.process_id);
+
+            if (AUTOMATIC_DEFRAGMENTATION) {
+                this->defragment_memory();
+            }
+
             break;
         }
 

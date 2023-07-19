@@ -19,17 +19,6 @@ int main() {
                 break;
             }
 
-            case Command::KILL: {
-                uint16_t process_id = interface.input.get_process_id();
-
-                process_manager.plan_kill(process_id);
-                break;
-            }
-
-            case Command::EXIT: {
-                return 0;
-            }
-
             case Command::RUN: {
                 try {
                     process_manager.run_first_task();
@@ -42,9 +31,25 @@ int main() {
                 break;
             }
 
+            case Command::KILL: {
+                uint16_t process_id = interface.input.get_process_id();
+
+                process_manager.plan_kill(process_id);
+                break;
+            }
+
+            case Command::DEFRAG: {
+                process_manager.defragment_memory();
+                break;
+            }
+
             case Command::HELP: {
                 interface.input.print_help();
                 break;
+            }
+
+            case Command::EXIT: {
+                return 0;
             }
 
             case Command::INVALID: {

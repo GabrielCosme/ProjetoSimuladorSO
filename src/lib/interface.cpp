@@ -13,6 +13,7 @@ static const std::regex CREATE_REGEX(
 
 static const std::regex RUN_REGEX(R"((r(un)?)?)");
 static const std::regex KILL_REGEX(R"(k(ill)?(\s+)([0-9]+))");
+static const std::regex DEFRAG_REGEX(R"(d(efrag)?)");
 static const std::regex HELP_REGEX(R"(h(elp)?)");
 static const std::regex EXIT_REGEX(R"(e(xit)?)");
 
@@ -34,20 +35,24 @@ Command Interface::Input::get_command() {
         return Command::CREATE;
     }
 
-    if (std::regex_match(this->input_command, this->input_matches, KILL_REGEX)) {
-        return Command::KILL;
-    }
-
-    if (std::regex_match(this->input_command, EXIT_REGEX)) {
-        return Command::EXIT;
-    }
-
     if (std::regex_match(this->input_command, RUN_REGEX)) {
         return Command::RUN;
     }
 
+    if (std::regex_match(this->input_command, this->input_matches, KILL_REGEX)) {
+        return Command::KILL;
+    }
+
+    if (std::regex_match(this->input_command, DEFRAG_REGEX)) {
+        return Command::DEFRAG;
+    }
+
     if (std::regex_match(this->input_command, HELP_REGEX)) {
         return Command::HELP;
+    }
+
+    if (std::regex_match(this->input_command, EXIT_REGEX)) {
+        return Command::EXIT;
     }
 
     return Command::INVALID;
@@ -68,10 +73,12 @@ uint16_t Interface::Input::get_process_id() const {
 }
 
 void Interface::Input::print_help() {
-    std::cout << "<empty>|r|run: run one clock step" << std::endl;
     std::cout << "c|create -i <instruction_amount> -m <memory_size>: create process" << std::endl;
+    std::cout << "<empty>|r|run: run one clock step" << std::endl;
     std::cout << "k|kill <process_id>: kill process" << std::endl;
+    std::cout << "d|defrag: defragment memory" << std::endl;
     std::cout << "h|help: print this help" << std::endl;
+    std::cout << "e|exit: exit the program" << std::endl;
 }
 
 void Interface::Input::print_invalid() {

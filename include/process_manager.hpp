@@ -10,6 +10,7 @@ enum Command {
     CREATE,
     RUN,
     KILL,
+    DEFRAG,
     HELP,
     EXIT,
     INVALID
