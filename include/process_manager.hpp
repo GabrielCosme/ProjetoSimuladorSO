@@ -33,7 +33,7 @@ class ProcessManager {
         ~ProcessManager() = default;
 
         /**
-         * @brief Create a process object
+         * @brief Add the task to create the process to the queue
          *
          * @param instruction_amount The amount of instructions the process has
          * @param memory_size The size of the memory block the process will use
@@ -41,14 +41,19 @@ class ProcessManager {
         void plan_create(uint16_t instruction_amount, uint16_t memory_size);
 
         /**
-         * @brief Run the process
+         * @brief Run the first task in the queue
          */
-        void run_process();
+        void run_first_task();
 
         /**
-         * @brief Kill the process
+         * @brief Add the task to kill the process to the queue
          */
         void plan_kill(uint16_t process_id);
+
+        /**
+         * @brief Defragment the memory
+         */
+        void defragment_memory();
 
         /**
          * @brief Output stream operator overloading

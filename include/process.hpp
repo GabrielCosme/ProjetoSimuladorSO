@@ -32,6 +32,11 @@ class Process {
         bool run();
 
         /**
+         * @brief Kill the process
+         */
+        void kill();
+
+        /**
          * @brief Get the process id
          *
          * @return uint16_t The id

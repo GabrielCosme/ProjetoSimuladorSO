@@ -32,7 +32,7 @@ int main() {
 
             case Command::RUN: {
                 try {
-                    process_manager.run_process();
+                    process_manager.run_first_task();
                 } catch (std::out_of_range& e) {
                     interface.output.print_invalid_pid();
                 } catch (std::length_error& e) {
