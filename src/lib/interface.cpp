@@ -118,7 +118,7 @@ std::ostream& operator <<(std::ostream& output, const Memory& memory) {
     output << "\e[7m+-------------------+" << std::endl;
 
     for (uint16_t i = 0; i < memory.bitmap.size(); i++) {
-        output << "| " << (bool) memory.bitmap[i] << " ";
+        output << "| " << (BITMAP_SHOW_IDS ? memory.bitmap[i] : (bool) memory.bitmap[i]) << " ";
 
         if (i % MEMORY_ROW_SIZE == MEMORY_ROW_SIZE - 1) {
             output << "|" << std::endl << "+-------------------+" << std::endl;

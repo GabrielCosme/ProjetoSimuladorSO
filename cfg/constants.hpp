@@ -11,6 +11,8 @@ constexpr bool AUTOMATIC_DEFRAGMENTATION = false;
 const std::vector<std::pair<uint16_t, uint16_t>> START_PROCESSES = {{2, 4}, {5, 4}};
 
 constexpr bool USE_ROUND_ROBIN = true;
-constexpr uint16_t QUANTUM = 2;
+constexpr uint16_t QUANTUM = 1;
+
+constexpr bool BITMAP_SHOW_IDS = true;
 
 #endif
