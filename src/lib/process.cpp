@@ -15,11 +15,7 @@ void Process::create() {
 bool Process::run() {
     this->program_counter++;
 
-    if (this->program_counter >= this->instruction_amount) {
-        return true;
-    }
-
-    return false;
+    return (this->program_counter >= this->instruction_amount);
 }
 
 void Process::kill() {

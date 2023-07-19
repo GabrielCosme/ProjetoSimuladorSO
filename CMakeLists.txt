@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.22.1)
 project(projeto_simulador_so)
 
 # Set a default C++ compile flag
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 set(CMAKE_CXX_STANDARD 20)
 
 # Set a default build type if none was specified

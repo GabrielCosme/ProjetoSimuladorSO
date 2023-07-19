@@ -15,10 +15,10 @@ enum Command {
     INVALID
 };
 
-typedef struct {
+using Task = struct {
     Command  command;
     uint16_t process_id;
-} Task;
+};
 
 class ProcessManager {
     public:

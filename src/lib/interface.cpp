@@ -3,7 +3,7 @@
 
 #include "interface.hpp"
 
-static constexpr char CLEAR_SCREEN[] = "\ec";
+static constexpr auto CLEAR_SCREEN = "\ec";
 
 // Input Defines
 static const std::regex INSTRUCTION_REGEX(R"(-i(\s*)([0-9]+))");
@@ -32,13 +32,21 @@ void Interface::Input::update_input() {
 Command Interface::Input::get_command() {
     if (std::regex_match(this->input_command, CREATE_REGEX)) {
         return Command::CREATE;
-    } else if (std::regex_match(this->input_command, this->input_matches, KILL_REGEX)) {
+    }
+
+    if (std::regex_match(this->input_command, this->input_matches, KILL_REGEX)) {
         return Command::KILL;
-    } else if (std::regex_match(this->input_command, EXIT_REGEX)) {
+    }
+
+    if (std::regex_match(this->input_command, EXIT_REGEX)) {
         return Command::EXIT;
-    } else if (std::regex_match(this->input_command, RUN_REGEX)) {
+    }
+
+    if (std::regex_match(this->input_command, RUN_REGEX)) {
         return Command::RUN;
-    } else if (std::regex_match(this->input_command, HELP_REGEX)) {
+    }
+
+    if (std::regex_match(this->input_command, HELP_REGEX)) {
         return Command::HELP;
     }
 
