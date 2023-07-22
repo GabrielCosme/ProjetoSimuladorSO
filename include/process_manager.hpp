@@ -68,7 +68,7 @@ class ProcessManager {
         Memory memory;
 
         /**
-         * @brief The id of the next process created
+         * @brief The number id of the last process created (0 is reserved for empty memory)
          */
         uint16_t id_counter = 0;
 
