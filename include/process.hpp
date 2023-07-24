@@ -32,6 +32,11 @@ class Process {
         bool run();
 
         /**
+         * @brief Kill the process
+         */
+        void kill();
+
+        /**
          * @brief Get the process id
          *
          * @return uint16_t The id
@@ -44,14 +49,34 @@ class Process {
         friend std::ostream& operator <<(std::ostream& output, const Process& process);
 
     private:
+        /**
+         * @brief The id used by the process
+         */
         uint16_t id;
 
+        /**
+         * @brief The number of instructions the process has executed
+         */
         uint16_t program_counter = 0;
+
+        /**
+         * @brief The number of instructions the process has
+         */
         uint16_t instruction_amount;
 
+        /**
+         * @brief The start address in the memory block the process will use
+         */
         uint16_t start_address;
+
+        /**
+         * @brief The size of the memory block the process will use
+         */
         uint16_t memory_size;
 
+        /**
+         * @brief A reference to the memory object
+         */
         Memory& memory;
 };
 

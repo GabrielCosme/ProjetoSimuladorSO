@@ -19,20 +19,9 @@ int main() {
                 break;
             }
 
-            case Command::KILL: {
-                uint16_t process_id = interface.input.get_process_id();
-
-                process_manager.plan_kill(process_id);
-                break;
-            }
-
-            case Command::EXIT: {
-                return 0;
-            }
-
             case Command::RUN: {
                 try {
-                    process_manager.run_process();
+                    process_manager.run_first_task();
                 } catch (std::out_of_range& e) {
                     interface.output.print_invalid_pid();
                 } catch (std::length_error& e) {
@@ -42,9 +31,25 @@ int main() {
                 break;
             }
 
+            case Command::KILL: {
+                uint16_t process_id = interface.input.get_process_id();
+
+                process_manager.plan_kill(process_id);
+                break;
+            }
+
+            case Command::DEFRAG: {
+                process_manager.defragment_memory();
+                break;
+            }
+
             case Command::HELP: {
                 interface.input.print_help();
                 break;
+            }
+
+            case Command::EXIT: {
+                return 0;
             }
 
             case Command::INVALID: {

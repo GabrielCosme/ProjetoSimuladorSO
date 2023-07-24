@@ -3,7 +3,7 @@
 
 #include "interface.hpp"
 
-static constexpr char CLEAR_SCREEN[] = "\ec";
+static constexpr auto CLEAR_SCREEN = "\ec";
 
 // Input Defines
 static const std::regex INSTRUCTION_REGEX(R"(-i(\s*)([0-9]+))");
@@ -13,6 +13,7 @@ static const std::regex CREATE_REGEX(
 
 static const std::regex RUN_REGEX(R"((r(un)?)?)");
 static const std::regex KILL_REGEX(R"(k(ill)?(\s+)([0-9]+))");
+static const std::regex DEFRAG_REGEX(R"(d(efrag)?)");
 static const std::regex HELP_REGEX(R"(h(elp)?)");
 static const std::regex EXIT_REGEX(R"(e(xit)?)");
 
@@ -32,14 +33,26 @@ void Interface::Input::update_input() {
 Command Interface::Input::get_command() {
     if (std::regex_match(this->input_command, CREATE_REGEX)) {
         return Command::CREATE;
-    } else if (std::regex_match(this->input_command, this->input_matches, KILL_REGEX)) {
-        return Command::KILL;
-    } else if (std::regex_match(this->input_command, EXIT_REGEX)) {
-        return Command::EXIT;
-    } else if (std::regex_match(this->input_command, RUN_REGEX)) {
+    }
+
+    if (std::regex_match(this->input_command, RUN_REGEX)) {
         return Command::RUN;
-    } else if (std::regex_match(this->input_command, HELP_REGEX)) {
+    }
+
+    if (std::regex_match(this->input_command, this->input_matches, KILL_REGEX)) {
+        return Command::KILL;
+    }
+
+    if (std::regex_match(this->input_command, DEFRAG_REGEX)) {
+        return Command::DEFRAG;
+    }
+
+    if (std::regex_match(this->input_command, HELP_REGEX)) {
         return Command::HELP;
+    }
+
+    if (std::regex_match(this->input_command, EXIT_REGEX)) {
+        return Command::EXIT;
     }
 
     return Command::INVALID;
@@ -60,10 +73,12 @@ uint16_t Interface::Input::get_process_id() const {
 }
 
 void Interface::Input::print_help() {
-    std::cout << "<empty>|r|run: run one clock step" << std::endl;
     std::cout << "c|create -i <instruction_amount> -m <memory_size>: create process" << std::endl;
+    std::cout << "<empty>|r|run: run one clock step" << std::endl;
     std::cout << "k|kill <process_id>: kill process" << std::endl;
+    std::cout << "d|defrag: defragment memory" << std::endl;
     std::cout << "h|help: print this help" << std::endl;
+    std::cout << "e|exit: exit the program" << std::endl;
 }
 
 void Interface::Input::print_invalid() {
@@ -103,7 +118,7 @@ std::ostream& operator <<(std::ostream& output, const Memory& memory) {
     output << "\e[7m+-------------------+" << std::endl;
 
     for (uint16_t i = 0; i < memory.bitmap.size(); i++) {
-        output << "| " << memory.bitmap[i] << " ";
+        output << "| " << (BITMAP_SHOW_IDS ? memory.bitmap[i] : (bool) memory.bitmap[i]) << " ";
 
         if (i % MEMORY_ROW_SIZE == MEMORY_ROW_SIZE - 1) {
             output << "|" << std::endl << "+-------------------+" << std::endl;

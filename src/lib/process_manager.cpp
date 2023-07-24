@@ -7,13 +7,13 @@ ProcessManager::ProcessManager() {
 }
 
 void ProcessManager::plan_create(uint16_t instruction_amount, uint16_t memory_size) {
+    this->id_counter++;
+
     this->processes.try_emplace(this->id_counter, this->id_counter, instruction_amount, memory_size, this->memory);
     this->tasks_queue.emplace_back(Command::CREATE, this->id_counter);
-
-    this->id_counter++;
 }
 
-void ProcessManager::run_process() {
+void ProcessManager::run_first_task() {
     if (this->tasks_queue.empty()) {
         return;
     }
@@ -52,6 +52,11 @@ void ProcessManager::run_process() {
                 });
 
             this->processes.erase(first_task.process_id);
+
+            if (AUTOMATIC_DEFRAGMENTATION) {
+                this->defragment_memory();
+            }
+
             break;
         }
 
@@ -62,4 +67,13 @@ void ProcessManager::run_process() {
 
 void ProcessManager::plan_kill(uint16_t process_id) {
     this->tasks_queue.emplace_back(KILL, process_id);
+}
+
+void ProcessManager::defragment_memory() {
+    uint16_t fragmented_process_id;
+
+    while ((fragmented_process_id = this->memory.get_first_fragmented_process()) != 0) {
+        this->processes.at(fragmented_process_id).kill();
+        this->processes.at(fragmented_process_id).create();
+    }
 }

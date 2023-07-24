@@ -10,15 +10,16 @@ enum Command {
     CREATE,
     RUN,
     KILL,
+    DEFRAG,
     HELP,
     EXIT,
     INVALID
 };
 
-typedef struct {
+struct Task {
     Command  command;
     uint16_t process_id;
-} Task;
+};
 
 class ProcessManager {
     public:
@@ -33,7 +34,7 @@ class ProcessManager {
         ~ProcessManager() = default;
 
         /**
-         * @brief Create a process object
+         * @brief Add the task to create the process to the queue
          *
          * @param instruction_amount The amount of instructions the process has
          * @param memory_size The size of the memory block the process will use
@@ -41,14 +42,19 @@ class ProcessManager {
         void plan_create(uint16_t instruction_amount, uint16_t memory_size);
 
         /**
-         * @brief Run the process
+         * @brief Run the first task in the queue
          */
-        void run_process();
+        void run_first_task();
 
         /**
-         * @brief Kill the process
+         * @brief Add the task to kill the process to the queue
          */
         void plan_kill(uint16_t process_id);
+
+        /**
+         * @brief Defragment the memory
+         */
+        void defragment_memory();
 
         /**
          * @brief Output stream operator overloading
@@ -62,7 +68,7 @@ class ProcessManager {
         Memory memory;
 
         /**
-         * @brief The id of the next process created
+         * @brief The number id of the last process created (0 is reserved for empty memory)
          */
         uint16_t id_counter = 0;
 
