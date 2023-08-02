@@ -59,7 +59,17 @@ class Interface {
                 /**
                  * @brief Print invalid command message on input screen
                  */
-                void print_invalid();
+                void print_invalid_command();
+
+                /**
+                 * @brief Print invalid pid error message on output screen
+                 */
+                void print_invalid_pid();
+
+                /**
+                 * @brief Print insufficient memory error message on output screen
+                 */
+                void print_insufficient_memory();
 
             private:
                 /**
@@ -89,16 +99,6 @@ class Interface {
                  * @brief
                  */
                 void update_output(const ProcessManager& process_manager);
-
-                /**
-                 * @brief Print invalid pid error message on output screen
-                 */
-                void print_invalid_pid();
-
-                /**
-                 * @brief Print insufficient memory error message on output screen
-                 */
-                void print_insufficient_memory();
 
                 /**
                  * @brief Adapt text to be placed vertically in any column

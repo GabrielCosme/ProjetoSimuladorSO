@@ -81,9 +81,17 @@ void Interface::Input::print_help() {
     std::cout << "e|exit: exit the program" << std::endl;
 }
 
-void Interface::Input::print_invalid() {
+void Interface::Input::print_invalid_command() {
     std::cout << "Invalid command " << this->input_command << std::endl;
     std::cout << "use \"help\" to get options" << std::endl;
+}
+
+void Interface::Input::print_invalid_pid() {
+    std::cout << "Process not found" << std::endl;
+}
+
+void Interface::Input::print_insufficient_memory() {
+    std::cout << "Not enough memory to create process" << std::endl;
 }
 
 Interface::Output::Output() : out("/dev/pts/1") {
@@ -97,14 +105,6 @@ void Interface::Output::update_output(const ProcessManager& process_manager) {
     this->out << CLEAR_SCREEN;
     this->out << process_manager;
     this->out.flush();
-}
-
-void Interface::Output::print_invalid_pid() {
-    this->out << "Process not found" << std::endl;
-}
-
-void Interface::Output::print_insufficient_memory() {
-    this->out << "Not enough memory to create process" << std::endl;
 }
 
 std::string Interface::Output::place_vertical(uint16_t x_pos, std::string text) {
