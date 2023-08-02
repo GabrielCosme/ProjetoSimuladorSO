@@ -73,25 +73,25 @@ uint16_t Interface::Input::get_process_id() const {
 }
 
 void Interface::Input::print_help() {
-    std::cout << "c|create -i <instruction_amount> -m <memory_size>: create process" << std::endl;
-    std::cout << "<empty>|r|run: run one clock step" << std::endl;
-    std::cout << "k|kill <process_id>: kill process" << std::endl;
-    std::cout << "d|defrag: defragment memory" << std::endl;
-    std::cout << "h|help: print this help" << std::endl;
-    std::cout << "e|exit: exit the program" << std::endl;
+    std::cout << "c|create -i <instruction_amount> -m <memory_size>: cria um processo" << std::endl;
+    std::cout << "<empty>|r|run: executa um passo do clock" << std::endl;
+    std::cout << "k|kill <process_id>: mata um processo" << std::endl;
+    std::cout << "d|defrag: defragmenta a memória" << std::endl;
+    std::cout << "h|help: imprime essa mensagem de ajuda" << std::endl;
+    std::cout << "e|exit: sai do programa" << std::endl;
 }
 
 void Interface::Input::print_invalid_command() {
-    std::cout << "Invalid command " << this->input_command << std::endl;
-    std::cout << "use \"help\" to get options" << std::endl;
+    std::cout << "comando inválido: " << this->input_command << std::endl;
+    std::cout << "use o comando \"help\" para ver as opções" << std::endl;
 }
 
 void Interface::Input::print_invalid_pid() {
-    std::cout << "Process not found" << std::endl;
+    std::cout << "Processo não encontrado" << std::endl;
 }
 
 void Interface::Input::print_insufficient_memory() {
-    std::cout << "Not enough memory to create process" << std::endl;
+    std::cout << "Não há memória suficiente para criar o processo" << std::endl;
 }
 
 Interface::Output::Output() : out("/dev/pts/1") {
@@ -151,7 +151,7 @@ std::ostream& operator <<(std::ostream& output, const Process& process) {
 std::ostream& operator <<(std::ostream& output, const ProcessManager& process_manager) {
     std::stringstream temp;
     temp << process_manager.memory;
-    output << Interface::Output::place_vertical(50, temp.str()) << "\n\n";
+    output << Interface::Output::place_vertical(30, temp.str()) << "\n\n";
 
     temp.str("");
 
@@ -172,7 +172,7 @@ std::ostream& operator <<(std::ostream& output, const ProcessManager& process_ma
         temp << process_manager.processes.at(process_manager.tasks_queue.front().process_id);
     }
 
-    output << "\e[H" << Interface::Output::place_vertical(20, temp.str());
+    output << "\e[H" << Interface::Output::place_vertical(0, temp.str());
     output << "\e[1m Fila de Prontos\e[22m" << std::endl;
 
     if (process_manager.tasks_queue.empty()) {
