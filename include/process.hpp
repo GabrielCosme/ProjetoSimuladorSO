@@ -37,13 +37,6 @@ class Process {
         void kill();
 
         /**
-         * @brief Get the process id
-         *
-         * @return uint16_t The id
-         */
-        uint16_t get_id() const;
-
-        /**
          * @brief Output stream operator overloading
          */
         friend std::ostream& operator <<(std::ostream& output, const Process& process);

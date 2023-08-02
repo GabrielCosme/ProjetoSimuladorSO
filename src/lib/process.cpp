@@ -21,7 +21,3 @@ bool Process::run() {
 void Process::kill() {
     this->memory.free(this->start_address, this->memory_size);
 }
-
-uint16_t Process::get_id() const {
-    return this->id;
-}
