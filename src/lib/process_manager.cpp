@@ -1,3 +1,5 @@
+#include <stdexcept>
+
 #include "process_manager.hpp"
 
 ProcessManager::ProcessManager() {
@@ -51,7 +53,9 @@ void ProcessManager::run_first_task() {
                     return task.process_id == first_task.process_id;
                 });
 
-            this->processes.erase(first_task.process_id);
+            if (this->processes.erase(first_task.process_id) == 0) {
+                throw std::out_of_range("Process ID not found");
+            }
 
             if (AUTOMATIC_DEFRAGMENTATION) {
                 this->defragment_memory();

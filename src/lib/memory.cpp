@@ -3,7 +3,7 @@
 #include "memory.hpp"
 
 Memory::Memory() {
-    this->bitmap.fill(false);
+    this->bitmap.fill(0);
 }
 
 uint16_t Memory::allocate(uint16_t process_id, uint16_t size) {

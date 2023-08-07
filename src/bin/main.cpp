@@ -23,9 +23,9 @@ int main() {
                 try {
                     process_manager.run_first_task();
                 } catch (std::out_of_range& e) {
-                    interface.output.print_invalid_pid();
+                    interface.input.print_invalid_pid();
                 } catch (std::length_error& e) {
-                    interface.output.print_insufficient_memory();
+                    interface.input.print_insufficient_memory();
                 }
 
                 break;
@@ -53,7 +53,7 @@ int main() {
             }
 
             case Command::INVALID: {
-                interface.input.print_invalid();
+                interface.input.print_invalid_command();
                 break;
             }
         }
