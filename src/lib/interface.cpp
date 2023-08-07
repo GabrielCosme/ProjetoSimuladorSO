@@ -74,7 +74,7 @@ uint16_t Interface::Input::get_process_id() const {
 
 void Interface::Input::print_help() {
     std::cout << "c|create -i <instruction_amount> -m <memory_size>: cria um processo" << std::endl;
-    std::cout << "<empty>|r|run: executa um passo do clock" << std::endl;
+    std::cout << "<empty>|r|run: executa uma task da fila de prontos" << std::endl;
     std::cout << "k|kill <process_id>: mata um processo" << std::endl;
     std::cout << "d|defrag: defragmenta a memória" << std::endl;
     std::cout << "h|help: imprime essa mensagem de ajuda" << std::endl;
